@@ -1,7 +1,5 @@
 package model;
 
-import model.Task;
-
 import java.util.ArrayList;
 
 public class EpicTask extends Task {
