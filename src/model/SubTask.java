@@ -30,10 +30,6 @@ public class SubTask extends Task {
         return epic;
     }
 
-    public void setEpicStatus(Status status) {
-        this.epic = epic;
-    }
-
     @Override
     public String toString() {
         return "SubTask{" +
