@@ -8,9 +8,9 @@ public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        /*
 
-        Task task = taskManager.creationTask(new Task("Трекер задач", "Написать код", Status.NEW));
+
+        Task task = taskManager.createTask(new Task("Трекер задач", "Написать код", Status.NEW));
         System.out.println(taskManager.getTask(task.getId()));
         System.out.println();
         System.out.println();
@@ -29,12 +29,12 @@ public class Main {
         System.out.println();
 
 
-        */
 
-        EpicTask epicTask = taskManager.creationEpic(new EpicTask("Провервка работы", "отправить работу на проверку"));
-        SubTask subTask = taskManager.creationSubTask(new SubTask(epicTask, "Трекер задач", "Написать код", Status.NEW));
-        SubTask subTask1 = taskManager.creationSubTask(new SubTask(epicTask, "Тест", "Проверить работу кода",Status.IN_PROGRESS));
-        SubTask subTask2 = taskManager.creationSubTask(new SubTask(epicTask, "Сдача работы", "Загрузить код на github", Status.DONE));
+
+        EpicTask epicTask = taskManager.createEpic(new EpicTask("Провервка работы", "отправить работу на проверку"));
+        SubTask subTask = taskManager.createSubTask(new SubTask(epicTask, "Трекер задач", "Написать код", Status.NEW));
+        SubTask subTask1 = taskManager.createSubTask(new SubTask(epicTask, "Тест", "Проверить работу кода",Status.IN_PROGRESS));
+        SubTask subTask2 = taskManager.createSubTask(new SubTask(epicTask, "Сдача работы", "Загрузить код на github", Status.DONE));
         System.out.println(taskManager.getEpicTask(epicTask.getId()));
         System.out.println();
         System.out.println();
@@ -65,8 +65,8 @@ public class Main {
         System.out.println();
         System.out.println(taskManager.getAllTask());
 
-        EpicTask epicTask1 = taskManager.creationEpic(new EpicTask("Проверка", "Удалить эпик"));
-        SubTask subTask3 = taskManager.creationSubTask(new SubTask(epicTask1, "Подзадача", "Удалить эпик", Status.NEW));
+        EpicTask epicTask1 = taskManager.createEpic(new EpicTask("Проверка", "Удалить эпик"));
+        SubTask subTask3 = taskManager.createSubTask(new SubTask(epicTask1, "Подзадача", "Удалить эпик", Status.NEW));
 
         taskManager.removeEpicTask(epicTask1.getId());
         System.out.println(taskManager.getAllEpicTask());
