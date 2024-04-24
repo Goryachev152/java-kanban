@@ -2,12 +2,16 @@ import model.EpicTask;
 import model.Status;
 import model.SubTask;
 import model.Task;
+import service.HistoryManager;
+import service.InMemoryHistoryManager;
+import service.InMemoryTaskManager;
 import service.TaskManager;
 
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+        TaskManager taskManager = new InMemoryTaskManager(historyManager);
 
 
         Task task = taskManager.createTask(new Task("Трекер задач", "Написать код", Status.NEW));
@@ -18,6 +22,7 @@ public class Main {
         task.setStatus(Status.DONE);
         taskManager.updateTask(task);
         System.out.println(taskManager.getTask(task.getId()));
+        System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
         taskManager.removeTask(task.getId());
