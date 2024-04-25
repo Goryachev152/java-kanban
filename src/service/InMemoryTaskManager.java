@@ -5,14 +5,12 @@ import model.Status;
 import model.SubTask;
 import model.Task;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    HashMap<Integer, Task> tasks;
-    HashMap<Integer, EpicTask> epics;
-    HashMap<Integer, SubTask> subTasks;
+    Map<Integer, Task> tasks;
+    Map<Integer, EpicTask> epics;
+    Map<Integer, SubTask> subTasks;
     HistoryManager historyManager;
     private int id;
 
@@ -39,7 +37,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Task> getAllTask() {
+    public List<Task> getAllTask() {
         return new ArrayList<>(tasks.values());
     }
 
@@ -73,8 +71,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<SubTask> getSubTaskEpicTask(EpicTask epicTask) {
-        return new ArrayList<SubTask>(epicTask.getSubTasks());
+    public List<SubTask> getSubTaskEpicTask(EpicTask epicTask) {
+        return new ArrayList<>(epicTask.getSubTasks());
     }
 
     @Override
@@ -88,7 +86,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<EpicTask> getAllEpicTask() {
+    public List<EpicTask> getAllEpicTask() {
         return new ArrayList<>(epics.values());
     }
 
@@ -106,7 +104,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<SubTask> getAllSubTaskEpic(EpicTask epicTask) {
+    public List<SubTask> getAllSubTaskEpic(EpicTask epicTask) {
         return epicTask.getSubTasks();
     }
 
@@ -127,7 +125,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<SubTask> getAllSubTask() {
+    public List<SubTask> getAllSubTask() {
         return new ArrayList<>(subTasks.values());
     }
 
