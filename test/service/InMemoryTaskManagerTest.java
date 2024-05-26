@@ -7,8 +7,6 @@ import model.Task;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class InMemoryTaskManagerTest {
     InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
     InMemoryTaskManager memoryTaskManager = new InMemoryTaskManager(historyManager);
