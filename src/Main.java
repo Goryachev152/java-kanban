@@ -13,71 +13,68 @@ public class Main {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
         TaskManager taskManager = new InMemoryTaskManager(historyManager);
 
+        Task task1 = new Task("NameTask1", "DescriptionTask1", Status.NEW);
+        Task task2 = new Task("NameTask2", "DescriptionTask2", Status.DONE);
+        EpicTask epicTask1 = new EpicTask("NameEpicTask1", "DescriptionEpicTask1");
+        SubTask subTask1 = new SubTask(epicTask1, "NameSubTask1", "DescriptionSubTask1", Status.DONE);
+        SubTask subTask2 = new SubTask(epicTask1, "NameSubTask2", "DescriptionSubTask2", Status.DONE);
+        SubTask subTask3 = new SubTask(epicTask1, "NameSubTask3", "DescriptionSubTask3", Status.DONE);
+        EpicTask epicTask2 = new EpicTask("NameEpicTask2", "DescriptionEpicTask2");
+        taskManager.createTask(task1);
+        taskManager.createTask(task2);
+        taskManager.createEpic(epicTask1);
+        taskManager.createSubTask(subTask1);
+        taskManager.createSubTask(subTask2);
+        taskManager.createSubTask(subTask3);
+        taskManager.createEpic(epicTask2);
 
-        Task task = taskManager.createTask(new Task("Трекер задач", "Написать код", Status.NEW));
-        System.out.println(taskManager.getTask(task.getId()));
-        System.out.println();
-        System.out.println();
-        task.setDescription("Код написан");
-        task.setStatus(Status.DONE);
-        taskManager.updateTask(task);
-        System.out.println(taskManager.getTask(task.getId()));
+
+        taskManager.getTask(task2.getId());
         System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
-        taskManager.removeTask(task.getId());
-        System.out.println(taskManager.getTask(task.getId()));
+        taskManager.getEpicTask(epicTask2.getId());
+        System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
-        System.out.println(taskManager.getAllTask());
+        taskManager.getSubTask(subTask1.getId());
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
+        taskManager.getSubTask(subTask3.getId());
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
+        taskManager.getEpicTask(epicTask1.getId());
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
+        taskManager.getSubTask(subTask2.getId());
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
+        taskManager.getTask(task1.getId());
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
+        taskManager.getSubTask(subTask1.getId());
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
+        taskManager.getTask(task2.getId());
+        System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
 
-
-
-
-        EpicTask epicTask = taskManager.createEpic(new EpicTask("Провервка работы", "отправить работу на проверку"));
-        SubTask subTask = taskManager.createSubTask(new SubTask(epicTask, "Трекер задач", "Написать код", Status.NEW));
-        SubTask subTask1 = taskManager.createSubTask(new SubTask(epicTask, "Тест", "Проверить работу кода",Status.IN_PROGRESS));
-        SubTask subTask2 = taskManager.createSubTask(new SubTask(epicTask, "Сдача работы", "Загрузить код на github", Status.DONE));
-        System.out.println(taskManager.getEpicTask(epicTask.getId()));
+        taskManager.removeTask(task2.getId());
+        System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
-        System.out.println(taskManager.getSubTask(subTask.getId()));
-        System.out.println(taskManager.getSubTask(subTask1.getId()));
-        System.out.println(taskManager.getSubTask(subTask2.getId()));
-        System.out.println();
-        System.out.println();
-        System.out.println(taskManager.getSubTaskEpicTask(epicTask));
-        System.out.println();
-        System.out.println();
-        subTask.setStatus(Status.DONE);
-        subTask1.setStatus(Status.DONE);
-        subTask2.setStatus(Status.DONE);
-        taskManager.updateSubTask(subTask);
-        taskManager.updateSubTask(subTask1);
-        taskManager.updateSubTask(subTask2);
-        System.out.println(taskManager.getEpicTask(epicTask.getId()));
-        System.out.println();
-        System.out.println();
-        taskManager.removeSubTask(subTask.getId());
-        System.out.println(taskManager.getEpicTask(epicTask.getId()));
-        System.out.println();
-        System.out.println();
-        taskManager.removeAllSubTask();
-        System.out.println(taskManager.getEpicTask(epicTask.getId()));
-        System.out.println();
-        System.out.println();
-        System.out.println(taskManager.getAllTask());
-
-        EpicTask epicTask1 = taskManager.createEpic(new EpicTask("Проверка", "Удалить эпик"));
-        SubTask subTask3 = taskManager.createSubTask(new SubTask(epicTask1, "Подзадача", "Удалить эпик", Status.NEW));
 
         taskManager.removeEpicTask(epicTask1.getId());
-        System.out.println(taskManager.getAllEpicTask());
-        System.out.println(taskManager.getAllTask());
-
-
+        System.out.println(historyManager.getHistory());
+        System.out.println();
+        System.out.println();
 
 
 

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
     InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
@@ -39,4 +38,13 @@ class InMemoryHistoryManagerTest {
         Assertions.assertEquals(copyHistory.get(0), historyManager.getHistory().get(0));
         Assertions.assertEquals(historyManager.getHistory().size(), copyHistory.size());
     }
+
+    @Test
+    void checkRemoveNode() {
+        memoryTaskManager.getTask(task.getId());
+        memoryTaskManager.getEpicTask(epicTask.getId());
+        historyManager.remove(task.getId());
+        Assertions.assertEquals(memoryTaskManager.getAllEpicTask(),historyManager.getHistory());
+    }
+
 }

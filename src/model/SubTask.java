@@ -1,9 +1,5 @@
 package model;
 
-import model.EpicTask;
-import model.Status;
-import model.Task;
-
 import java.util.Objects;
 
 public class SubTask extends Task {
