@@ -6,6 +6,7 @@ import java.util.Objects;
 public class EpicTask extends Task {
     private ArrayList<SubTask> subTasks = new ArrayList<>();
     private int id;
+
     public EpicTask(String name, String description) {
         super(name, description, Status.NEW);
     }
