@@ -74,9 +74,5 @@ public class Main {
         System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
-
-
-
-
     }
 }

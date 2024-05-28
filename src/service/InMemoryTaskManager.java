@@ -82,7 +82,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void removeEpicTask(int id) {
         EpicTask epicTaskCopy = epics.remove(id);
         historyManager.remove(id);
-        ArrayList<SubTask> subTask = epicTaskCopy.getSubTasks();
+        List<SubTask> subTask = epicTaskCopy.getSubTasks();
         for (SubTask subTaskCopy : subTask) {
             subTasks.remove(subTaskCopy.getId());
             historyManager.remove(subTaskCopy.getId());
