@@ -5,19 +5,29 @@ import model.Status;
 import model.SubTask;
 import model.Task;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
-    InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-    InMemoryTaskManager memoryTaskManager = new InMemoryTaskManager(historyManager);
-    Task task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW));
-    EpicTask epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription"));
-    SubTask subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW));
+
+    private static InMemoryHistoryManager historyManager;
+    private static InMemoryTaskManager memoryTaskManager;
+    private static Task task;
+    private static EpicTask epicTask;
+    private static SubTask subTask;
+
+    @BeforeEach
+    public void beforeEach() {
+        historyManager = new InMemoryHistoryManager();
+        memoryTaskManager = new InMemoryTaskManager(historyManager);
+        task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW));
+        epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription"));
+        subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW));
+    }
 
     @Test
     void savedAddHistory() {
@@ -36,7 +46,16 @@ class InMemoryHistoryManagerTest {
         copyHistory.add(task);
         copyHistory.add(subTask);
         copyHistory.add(epicTask);
-        Assertions.assertEquals(copyHistory.get(0), historyManager.getHistory().get(0));
+        Assertions.assertEquals(copyHistory.getFirst(), historyManager.getHistory().getFirst());
         Assertions.assertEquals(historyManager.getHistory().size(), copyHistory.size());
     }
+
+    @Test
+    void checkRemoveNode() {
+        memoryTaskManager.getTask(task.getId());
+        memoryTaskManager.getEpicTask(epicTask.getId());
+        historyManager.remove(task.getId());
+        Assertions.assertEquals(memoryTaskManager.getAllEpicTask(),historyManager.getHistory());
+    }
+
 }

@@ -5,16 +5,26 @@ import model.Status;
 import model.SubTask;
 import model.Task;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class InMemoryTaskManagerTest {
-    InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
-    InMemoryTaskManager memoryTaskManager = new InMemoryTaskManager(historyManager);
-    Task task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW));
-    EpicTask epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription"));
-    SubTask subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW));
+
+    private static InMemoryHistoryManager historyManager;
+    private static InMemoryTaskManager memoryTaskManager;
+    private static Task task;
+    private static EpicTask epicTask;
+    private static SubTask subTask;
+
+    @BeforeEach
+    public void beforeEach() {
+        historyManager = new InMemoryHistoryManager();
+        memoryTaskManager = new InMemoryTaskManager(historyManager);
+        task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW));
+        epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription"));
+        subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW));
+    }
+
     @Test
     void createTaskNotNull() {
         Assertions.assertNotNull(memoryTaskManager.getTask(task.getId()));
