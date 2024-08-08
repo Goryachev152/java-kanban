@@ -4,19 +4,19 @@ import java.util.Objects;
 
 public class SubTask extends Task {
     private EpicTask epic;
-    private int id;
 
-    public SubTask(EpicTask epicTask, String name, String description, Status status) {
-        super(name, description, status);
+    public SubTask(EpicTask epicTask, String name, String description, Status status, TaskType taskType) {
+        super(name, description, status, taskType);
         this.epic = epicTask;
     }
 
-    public int getId() {
-        return id;
+    public SubTask(Integer id, EpicTask epicTask, String name, String description, Status status, TaskType taskType) {
+        super(id, name, description, status, taskType);
+        this.epic = epicTask;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEpic(EpicTask epicTask) {
+        this.epic = epicTask;
     }
 
     public EpicTask getEpic() {
@@ -35,6 +35,11 @@ public class SubTask extends Task {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), id);
+    }
+
+    @Override
+    public String toCsvString() {
+        return super.toCsvString() + "," + epic.getId();
     }
 
     @Override

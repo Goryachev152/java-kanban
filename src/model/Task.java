@@ -3,22 +3,31 @@ package model;
 import java.util.Objects;
 
 public class Task {
-    private String name;
-    private String description;
-    private int id;
-    private Status status;
+    protected String name;
+    protected String description;
+    protected int id;
+    protected Status status;
+    protected TaskType taskType;
 
-    public Task(String name, String description, Status status) {
+    public Task() {}
+
+    public Task(String name, String description, Status status, TaskType taskType) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.taskType = taskType;
     }
 
-    public Task(int id, String name, String description, Status status) {
+    public Task(int id, String name, String description, Status status, TaskType taskType) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.status = status;
+        this.taskType = taskType;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     public int getId() {
@@ -51,6 +60,10 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public String toCsvString() {
+        return id + "," + taskType + "," + name + "," + status + "," + description;
     }
 
     @Override

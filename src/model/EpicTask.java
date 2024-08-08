@@ -6,10 +6,18 @@ import java.util.Objects;
 
 public class EpicTask extends Task {
     private List<SubTask> subTasks = new ArrayList<>();
-    private int id;
 
-    public EpicTask(String name, String description) {
-        super(name, description, Status.NEW);
+    public EpicTask(String name, String description, Status status, TaskType taskType) {
+        super(name, description, status, taskType);
+    }
+
+    public EpicTask(Integer id, String name, String description, Status status, TaskType taskType) {
+        super(id, name, description, status, taskType);
+    }
+
+    public EpicTask(Integer id) {
+        super();
+        this.id = id;
     }
 
     public List<SubTask> getSubTasks() {
@@ -22,14 +30,6 @@ public class EpicTask extends Task {
 
     public void removeSubTask() {
         subTasks.clear();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override
