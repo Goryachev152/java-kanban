@@ -12,8 +12,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private final File file;
 
-    public FileBackedTaskManager(String path
-            , HistoryManager historyManager) {
+    public FileBackedTaskManager(String path, HistoryManager historyManager) {
         super(historyManager);
         this.file = new File(path);
     }
@@ -39,7 +38,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
      }
     }
 
-    private Task fromString (String value) {
+    private Task fromString(String value) {
         String[] split = value.split(",");
         int id = Integer.parseInt(split[0]);
         TaskType typeTask = TaskType.valueOf(split[1]);
@@ -57,7 +56,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     public static FileBackedTaskManager loadFromFile(File file) {
-        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file.getPath(), Managers.getDefaultHistory());
+        FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager(file.getPath(),
+                Managers.getDefaultHistory());
         StringBuilder builder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
             bufferedReader.readLine();
@@ -112,7 +112,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return task;
     }
 
-    private String toString (Task task) {
+    private String toString(Task task) {
         return task.toCsvString();
     }
 
