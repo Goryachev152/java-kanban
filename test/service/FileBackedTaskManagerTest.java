@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 class FileBackedTaskManagerTest {
 
-    private static FileBackedTaskManager fileBackedTaskManager;
+    private FileBackedTaskManager fileBackedTaskManager;
 
     private Task task1;
 

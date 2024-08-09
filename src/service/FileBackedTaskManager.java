@@ -10,6 +10,8 @@ import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
+    private static final String HEADER = "id,type,name,status,description,epic";
+
     private final File file;
 
     public FileBackedTaskManager(String path, HistoryManager historyManager) {
@@ -19,17 +21,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private void save() {
      try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
-         bufferedWriter.write("id,type,name,status,description,epic");
+         bufferedWriter.write(HEADER);
          bufferedWriter.newLine();
-         for (Task task : tasks.values()) {
+         for (Task task : getTasks().values()) {
              bufferedWriter.write(toString(task));
              bufferedWriter.newLine();
          }
-         for (EpicTask epicTask : epics.values()) {
+         for (EpicTask epicTask : getEpics().values()) {
              bufferedWriter.write(toString(epicTask));
              bufferedWriter.newLine();
          }
-         for (SubTask subTask : subTasks.values()) {
+         for (SubTask subTask : getSubTasks().values()) {
              bufferedWriter.write(toString(subTask));
              bufferedWriter.newLine();
          }
@@ -90,14 +92,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
             fileBackedTaskManager.setId(maxId);
             switch (task.getTaskType()) {
-                case TASK -> fileBackedTaskManager.tasks.put(task.getId(), task);
-                case SUB_TASK -> fileBackedTaskManager.subTasks.put(task.getId(), (SubTask) task);
-                case EPIC_TASK -> fileBackedTaskManager.epics.put(task.getId(), (EpicTask) task);
+                case TASK -> fileBackedTaskManager.getTasks().put(task.getId(), task);
+                case SUB_TASK -> fileBackedTaskManager.getSubTasks().put(task.getId(), (SubTask) task);
+                case EPIC_TASK -> fileBackedTaskManager.getEpics().put(task.getId(), (EpicTask) task);
             }
         }
-        for (SubTask subTask : fileBackedTaskManager.subTasks.values()) {
+        for (SubTask subTask : fileBackedTaskManager.getSubTasks().values()) {
             int epicId = subTask.getEpic().getId();
-            EpicTask epicTask = fileBackedTaskManager.epics.get(epicId);
+            EpicTask epicTask = fileBackedTaskManager.getEpics().get(epicId);
             epicTask.addSubTask(subTask);
             subTask.setEpic(epicTask);
         }

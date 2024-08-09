@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 class InMemoryTaskManagerTest {
 
-    private static InMemoryHistoryManager historyManager;
-    private static InMemoryTaskManager memoryTaskManager;
-    private static Task task;
-    private static EpicTask epicTask;
-    private static SubTask subTask;
+    private InMemoryHistoryManager historyManager;
+    private InMemoryTaskManager memoryTaskManager;
+    private Task task;
+    private EpicTask epicTask;
+    private SubTask subTask;
 
     @BeforeEach
     public void beforeEach() {

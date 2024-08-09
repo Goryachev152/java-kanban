@@ -8,10 +8,10 @@ import model.Task;
 import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    Map<Integer, Task> tasks;
-    Map<Integer, EpicTask> epics;
-    Map<Integer, SubTask> subTasks;
-    HistoryManager historyManager;
+    private Map<Integer, Task> tasks;
+    private Map<Integer, EpicTask> epics;
+    private Map<Integer, SubTask> subTasks;
+    private HistoryManager historyManager;
     private int id;
 
     public InMemoryTaskManager(HistoryManager historyManager) {
@@ -19,6 +19,18 @@ public class InMemoryTaskManager implements TaskManager {
         this.epics = new HashMap<>();
         this.subTasks = new HashMap<>();
         this.historyManager = historyManager;
+    }
+
+    protected Map<Integer, Task> getTasks() {
+        return tasks;
+    }
+
+    protected Map<Integer, EpicTask> getEpics() {
+        return epics;
+    }
+
+    protected Map<Integer, SubTask> getSubTasks() {
+        return subTasks;
     }
 
     protected void setId(int id) {
