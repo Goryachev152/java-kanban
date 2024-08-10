@@ -1,9 +1,6 @@
 package service;
 
-import model.EpicTask;
-import model.Status;
-import model.SubTask;
-import model.Task;
+import model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,19 +11,19 @@ import java.util.List;
 
 class InMemoryHistoryManagerTest {
 
-    private static InMemoryHistoryManager historyManager;
-    private static InMemoryTaskManager memoryTaskManager;
-    private static Task task;
-    private static EpicTask epicTask;
-    private static SubTask subTask;
+    private InMemoryHistoryManager historyManager;
+    private InMemoryTaskManager memoryTaskManager;
+    private Task task;
+    private EpicTask epicTask;
+    private SubTask subTask;
 
     @BeforeEach
     public void beforeEach() {
         historyManager = new InMemoryHistoryManager();
         memoryTaskManager = new InMemoryTaskManager(historyManager);
-        task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW));
-        epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription"));
-        subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW));
+        task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW, TaskType.TASK));
+        epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription", Status.NEW, TaskType.EPIC_TASK));
+        subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW, TaskType.SUB_TASK));
     }
 
     @Test

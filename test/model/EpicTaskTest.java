@@ -11,8 +11,8 @@ class EpicTaskTest {
 
     @BeforeEach
     public void beforeEach() {
-        epicTask = new EpicTask("Name", "Description");
-        subTask = new SubTask(epicTask, "name", "description", Status.NEW);
+        epicTask = new EpicTask("Name", "Description", Status.NEW, TaskType.EPIC_TASK);
+        subTask = new SubTask(epicTask, "name", "description", Status.NEW, TaskType.SUB_TASK);
     }
 
     @Test
