@@ -21,9 +21,13 @@ class InMemoryHistoryManagerTest {
     public void beforeEach() {
         historyManager = new InMemoryHistoryManager();
         memoryTaskManager = new InMemoryTaskManager(historyManager);
-        task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW, TaskType.TASK));
-        epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription", Status.NEW, TaskType.EPIC_TASK));
-        subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask", "subTaskDescription", Status.NEW, TaskType.SUB_TASK));
+        task = memoryTaskManager.createTask(new Task("name", "description", Status.NEW, TaskType.TASK,
+                "14.10.2024 15:00", 120));
+        epicTask = memoryTaskManager.createEpic(new EpicTask("nameEpic", "epicDescription", Status.NEW,
+                TaskType.EPIC_TASK));
+        subTask = memoryTaskManager.createSubTask(new SubTask(epicTask, "nameSubTask",
+                "subTaskDescription", Status.NEW, TaskType.SUB_TASK, "15.10.2024 15:00",
+                120));
     }
 
     @Test
@@ -55,4 +59,15 @@ class InMemoryHistoryManagerTest {
         Assertions.assertEquals(memoryTaskManager.getAllEpicTask(),historyManager.getHistory());
     }
 
+    @Test
+    void emptyHistory() {
+        Assertions.assertTrue(historyManager.getHistory().isEmpty());
+    }
+
+    @Test
+    void notDoubleGetTaskAddHistory() {
+        memoryTaskManager.getTask(task.getId());
+        memoryTaskManager.getTask(task.getId());
+        Assertions.assertEquals(historyManager.historyMap.size(), 1, "Задача дублировалась в истории");
+    }
 }

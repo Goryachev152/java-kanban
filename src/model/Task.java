@@ -1,31 +1,47 @@
 package model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Task {
+public class Task implements Comparable<Task> {
+    protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     protected String name;
     protected String description;
     protected int id;
     protected Status status;
     protected TaskType taskType;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
 
     public Task() {
 
     }
 
-    public Task(String name, String description, Status status, TaskType taskType) {
+    public Task(String name, String description, Status status, TaskType taskType, String startTime, Integer duration) {
         this.name = name;
         this.description = description;
         this.status = status;
         this.taskType = taskType;
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = LocalDateTime.parse(startTime, TIME_FORMATTER);
     }
 
-    public Task(int id, String name, String description, Status status, TaskType taskType) {
+    public Task(int id, String name, String description, Status status, TaskType taskType, String startTime, Integer duration) {
         this.name = name;
         this.description = description;
         this.id = id;
         this.status = status;
         this.taskType = taskType;
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = LocalDateTime.parse(startTime, TIME_FORMATTER);
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        return this.startTime.compareTo(task.startTime);
     }
 
     public TaskType getTaskType() {
@@ -65,7 +81,27 @@ public class Task {
     }
 
     public String toCsvString() {
-        return id + "," + taskType + "," + name + "," + status + "," + description;
+        return String.format("%s,%s,%s,%s,%s,%s,%s", id, taskType, name, status, description, startTime.format(TIME_FORMATTER), duration.toMinutes());
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = Duration.ofMinutes(duration);
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = LocalDateTime.parse(startTime, TIME_FORMATTER);
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
     @Override
@@ -83,11 +119,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status=" + status +
-                '}';
+        return String.format("%s,%s,%s,%s,%s,%s,%s,", id, taskType, name, status,
+                description, startTime.format(TIME_FORMATTER), duration.toMinutes());
     }
 }
