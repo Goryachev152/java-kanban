@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-class FileBackedTaskManagerTest {
+class FileBackedTaskManagerTest extends TaskManagerTest<TaskManager> {
 
     private FileBackedTaskManager fileBackedTaskManager;
 
@@ -19,7 +19,7 @@ class FileBackedTaskManagerTest {
     @BeforeEach
     public void beforeEach() {
         fileBackedTaskManager = new FileBackedTaskManager("testHistory.csv", Managers.getDefaultHistory());
-        task1 = fileBackedTaskManager.createTask(new Task("testName", "testDescription", Status.NEW, TaskType.TASK));
+        task1 = fileBackedTaskManager.createTask(new Task("testName", "testDescription", Status.NEW, TaskType.TASK, "12.10.2024 15:00", 120));
         epicTask1 = fileBackedTaskManager.createEpic((new EpicTask("testNameEpic", "testDescriptionEpic", Status.NEW, TaskType.EPIC_TASK)));
     }
 
@@ -44,5 +44,10 @@ class FileBackedTaskManagerTest {
         FileBackedTaskManager fileBackedTaskManager1 = FileBackedTaskManager.loadFromFile(new File("testHistory.csv"));
         Assertions.assertEquals(fileBackedTaskManager.getAllTask(), fileBackedTaskManager1.getAllTask(), "Задачи не совпадают");
         Assertions.assertEquals(fileBackedTaskManager.getAllEpicTask(), fileBackedTaskManager1.getAllEpicTask(), "Задачи не совпадают");
+    }
+
+    @Test
+    void throwsExceptionLoadWrongFile() {
+        Assertions.assertThrows(ManagerSaveException.class, () -> FileBackedTaskManager.loadFromFile(new File("fileWrong")));
     }
 }
