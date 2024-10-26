@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class SubTaskAdapter extends TypeAdapter<SubTask> {
     protected static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+
     @Override
     public void write(JsonWriter jsonWriter, SubTask subTask) throws IOException {
         jsonWriter.beginObject();
@@ -110,7 +111,7 @@ public class SubTaskAdapter extends TypeAdapter<SubTask> {
         }
         jsonReader.endObject();
         if (!Objects.isNull(id)) {
-            return new SubTask(id,epic, name, description, status, taskType, startTime, duration);
+            return new SubTask(id, epic, name, description, status, taskType, startTime, duration);
         } else {
             return new SubTask(epic, name , description, status, taskType, startTime, duration);
         }
