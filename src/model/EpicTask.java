@@ -35,7 +35,8 @@ public class EpicTask extends Task {
         this.id = id;
     }
 
-    public EpicTask() {}
+    public EpicTask() {
+    }
 
     public List<SubTask> getSubTasks() {
         return new ArrayList<>(subTasks);
