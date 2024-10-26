@@ -23,5 +23,5 @@
 hs_err_pid*
 
 # testFile
-testHistory.csv
 history.csv
+testHistory.csv

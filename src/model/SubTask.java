@@ -15,6 +15,9 @@ public class SubTask extends Task {
         this.epic = epicTask;
     }
 
+    public SubTask() {
+    }
+
     public void setEpic(EpicTask epicTask) {
         this.epic = epicTask;
     }

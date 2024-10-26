@@ -1,5 +1,6 @@
 package service;
 
+import API.HistoryHandler;
 import model.EpicTask;
 import model.SubTask;
 import model.Task;
@@ -17,7 +18,7 @@ public interface TaskManager {
 
     Task getTask(int id);
 
-    void removeTask(int id);
+    Task removeTask(int id);
 
     EpicTask createEpic(EpicTask epicTask);
 
@@ -25,13 +26,13 @@ public interface TaskManager {
 
     List<SubTask> getSubTaskEpicTask(EpicTask epicTask);
 
-    void removeEpicTask(int id);
+    EpicTask removeEpicTask(int id);
 
     List<EpicTask> getAllEpicTask();
 
     void removeAllEpicTask();
 
-    void updateEpicTask(EpicTask epicTask);
+    EpicTask updateEpicTask(EpicTask epicTask);
 
     List<SubTask> getAllSubTaskEpic(EpicTask epicTask);
 
@@ -41,9 +42,15 @@ public interface TaskManager {
 
     List<SubTask> getAllSubTask();
 
-    void removeSubTask(int id);
+    SubTask removeSubTask(int id);
 
     void removeAllSubTask();
 
-    void updateSubTask(SubTask subTask);
+    SubTask updateSubTask(SubTask subTask);
+
+    boolean isValidTask(Task task);
+
+    List<Task> getPrioritizedTasks();
+
+    HistoryManager getHistoryManager();
 }

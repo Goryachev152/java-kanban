@@ -1,2 +1,3 @@
 id,type,name,status,description,startTime,duration,epic
-2,EPIC_TASK,EpicTask1,DONE,DescriptionEpicTask
+1,TASK,Task1,NEW,Description,12.10.2024 15:00,130
+2,EPIC_TASK,EpicTask1,NEW,DescriptionEpicTask

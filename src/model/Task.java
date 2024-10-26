@@ -35,13 +35,25 @@ public class Task implements Comparable<Task> {
         this.id = id;
         this.status = status;
         this.taskType = taskType;
-        this.duration = Duration.ofMinutes(duration);
+        if (duration == null) {
+            this.duration = null;
+        } else {
+            this.duration = Duration.ofMinutes(duration);
+        }
+        if (startTime.equals("null")) {
+            this.startTime = null;
+        } else {
         this.startTime = LocalDateTime.parse(startTime, TIME_FORMATTER);
+        }
     }
 
     @Override
     public int compareTo(Task task) {
         return this.startTime.compareTo(task.startTime);
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 
     public TaskType getTaskType() {

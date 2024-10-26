@@ -34,8 +34,6 @@ public class Main {
         taskManager.createEpic(epicTask2);
 
 
-        taskManager.getTask(task2.getId());
-        System.out.println(historyManager.getHistory());
         System.out.println();
         System.out.println();
         taskManager.getEpicTask(epicTask2.getId());
@@ -85,7 +83,7 @@ public class Main {
         FileBackedTaskManager fileBackedTaskManager = new FileBackedTaskManager("history.csv", Managers.getDefaultHistory());
         fileBackedTaskManager.createTask(new Task("Task1", "Description", Status.NEW, TaskType.TASK, "12.10.2024 15:00", 130));
         EpicTask epicTask = fileBackedTaskManager.createEpic(new EpicTask("EpicTask1", "DescriptionEpicTask", Status.NEW, TaskType.EPIC_TASK));
-        SubTask subTask = fileBackedTaskManager.createSubTask(new SubTask(epicTask, "SubTask", "DescriptionSubTask", Status.NEW, TaskType.SUB_TASK, "12.10.2024 19:00", 140));
+        SubTask subTask = fileBackedTaskManager.createSubTask(new SubTask(epicTask, "SubTask", "DescriptionSubTask", Status.NEW, TaskType.SUB_TASK, "12.10.2024 15:00", 140));
         fileBackedTaskManager.removeAllTask();
         fileBackedTaskManager.removeSubTask(subTask.getId());
         System.out.println(fileBackedTaskManager.getAllTask());

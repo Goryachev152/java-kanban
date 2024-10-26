@@ -53,8 +53,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String name = split[2];
         Status status = Status.valueOf(split[3]);
         String description = split[4];
-        //String startTime = split[5];
-        //String duration = split[6];
         if (typeTask == TaskType.TASK) {
             String startTime = split[5];
             String duration = split[6];
@@ -150,9 +148,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeTask(int id) {
-        super.removeTask(id);
+    public Task removeTask(int id) {
+        Task task = super.removeTask(id);
         save();
+        return task;
     }
 
     @Override
@@ -163,9 +162,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeEpicTask(int id) {
-        super.removeEpicTask(id);
+    public EpicTask removeEpicTask(int id) {
+        EpicTask epicTask = super.removeEpicTask(id);
         save();
+        return epicTask;
     }
 
     @Override
@@ -175,9 +175,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateEpicTask(EpicTask epicTask) {
-        super.updateEpicTask(epicTask);
+    public EpicTask updateEpicTask(EpicTask epicTask) {
+        EpicTask epicTask1 = super.updateEpicTask(epicTask);
         save();
+        return epicTask1;
     }
 
     @Override
@@ -188,9 +189,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeSubTask(int id) {
-        super.removeSubTask(id);
+    public SubTask removeSubTask(int id) {
+        SubTask subTask = super.removeSubTask(id);
         save();
+        return subTask;
     }
 
     @Override
@@ -200,8 +202,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void updateSubTask(SubTask subTask) {
+    public SubTask updateSubTask(SubTask subTask) {
         super.updateSubTask(subTask);
         save();
+        return subTask;
     }
 }
