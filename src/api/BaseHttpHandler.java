@@ -106,7 +106,7 @@ public class BaseHttpHandler {
         }
     }
 
-    protected static Endpoint getEndpoint (String requestPath, String requestMethod) {
+    protected static Endpoint getEndpoint(String requestPath, String requestMethod) {
         String[] pathParts = requestPath.split("/");
         if (requestMethod.equals("GET") && pathParts.length < 3) {
             return Endpoint.GET_ALL_TASK;
