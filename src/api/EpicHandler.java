@@ -1,18 +1,18 @@
-package API;
+package api;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import model.SubTask;
+import model.EpicTask;
 import service.TaskManager;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
+public class EpicHandler extends BaseHttpHandler implements HttpHandler {
     private TaskManager taskManager;
 
-    public SubTaskHandler(TaskManager taskManager) {
+    public EpicHandler(TaskManager taskManager) {
         this.taskManager = taskManager;
     }
 
@@ -26,7 +26,7 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
             int id;
             switch (endpoint) {
                 case GET_ALL_TASK:
-                    text = gson.toJson(taskManager.getAllSubTask());
+                    text = gson.toJson(taskManager.getAllEpicTask());
                     sendText(exchange, text);
                     break;
                 case GET_TASK:
@@ -35,9 +35,23 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
                         sendNotFound(exchange);
                     }
                     id = getId.get();
-                    SubTask subTask = taskManager.getSubTask(id);
-                    if (subTask != null) {
-                        text = gson.toJson(subTask, SubTask.class);
+                    EpicTask epicTask = taskManager.getEpicTask(id);
+                    if (epicTask != null) {
+                        text = gson.toJson(epicTask, EpicTask.class);
+                        sendText(exchange, text);
+                    } else {
+                        sendNotFound(exchange);
+                    }
+                    break;
+                case GET_EPIC_SUBTASK:
+                    Optional<Integer> getEpicId = getPostId(exchange);
+                    if (getEpicId.isEmpty()) {
+                        sendNotFound(exchange);
+                    }
+                    id = getEpicId.get();
+                    EpicTask epicTask1 = taskManager.getEpicTask(id);
+                    if (epicTask1 != null) {
+                        text = gson.toJson(taskManager.getSubTaskEpicTask(epicTask1));
                         sendText(exchange, text);
                     } else {
                         sendNotFound(exchange);
@@ -45,25 +59,17 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
                     break;
                 case POST_TASK:
                     String bodyTask = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-                    SubTask newTask = gson.fromJson(bodyTask, SubTask.class);
-                    if (taskManager.isValidTask(newTask)) {
-                        sendHasInteractions(exchange);
-                    } else {
-                        taskManager.createSubTask(newTask);
-                        text = "Задача добавлена";
-                        sendPost(exchange, text);
-                    }
+                    EpicTask newTask = gson.fromJson(bodyTask, EpicTask.class);
+                    taskManager.createEpic(newTask);
+                    text = "Задача добавлена";
+                    sendPost(exchange, text);
                     break;
                 case POST_UPDATE:
                     String bodyUpdateTask = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-                    SubTask updateTask = taskManager.updateSubTask(gson.fromJson(bodyUpdateTask, SubTask.class));
+                    EpicTask updateTask = taskManager.updateEpicTask(gson.fromJson(bodyUpdateTask, EpicTask.class));
                     if (updateTask != null) {
-                        if (taskManager.isValidTask(updateTask)) {
-                            sendHasInteractions(exchange);
-                        } else {
-                            text = "Задача обновлена";
-                            sendPost(exchange, text);
-                        }
+                        text = "Задача обновлена";
+                        sendPost(exchange, text);
                     } else {
                         sendNotFound(exchange);
                     }
@@ -74,7 +80,7 @@ public class SubTaskHandler extends BaseHttpHandler implements HttpHandler {
                         sendNotFound(exchange);
                     }
                     id = deleteId.get();
-                    SubTask remove = taskManager.removeSubTask(id);
+                    EpicTask remove = taskManager.removeEpicTask(id);
                     if (remove != null) {
                         sendDelete(exchange);
                     } else {

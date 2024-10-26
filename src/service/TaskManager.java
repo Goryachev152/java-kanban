@@ -1,6 +1,5 @@
 package service;
 
-import API.HistoryHandler;
 import model.EpicTask;
 import model.SubTask;
 import model.Task;

@@ -1,23 +1,25 @@
-package API;
+package api;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import service.HistoryManager;
+import service.TaskManager;
 
 import java.io.IOException;
 
-public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
-    HistoryManager historyManager;
+public class PrioritizedHandler extends BaseHttpHandler implements HttpHandler {
+    private TaskManager taskManager;
 
-    public HistoryHandler(HistoryManager historyManager) {
-        this.historyManager = historyManager;
+    public PrioritizedHandler(TaskManager taskManager) {
+        this.taskManager = taskManager;
     }
+
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         try {
             String requestMethod = exchange.getRequestMethod();
             if (requestMethod.equals("GET")) {
-                String text = gson.toJson(historyManager.getHistory());
+                String text = gson.toJson(taskManager.getPrioritizedTasks());
                 sendText(exchange, text);
             } else {
                 sendNotEndpoint(exchange);

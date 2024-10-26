@@ -1,4 +1,4 @@
-package API;
+package api;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,12 +21,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class PrioritizedHandlerTest {
+class HistoryHandlerTest {
     TaskManager manager = Managers.getDefault();
     HttpTaskServer taskServer = new HttpTaskServer(manager);
     Gson gson = BaseHttpHandler.gson;
 
-    public PrioritizedHandlerTest() throws IOException {
+    public HistoryHandlerTest() throws IOException {
     }
 
     @BeforeEach
@@ -43,7 +43,7 @@ class PrioritizedHandlerTest {
     }
 
     @Test
-    public void testGetPrioritized() throws IOException, InterruptedException {
+    public void testGetHistory() throws IOException, InterruptedException {
         Task task1 = new Task("Test 1", "Testing task 1",
                 Status.NEW, TaskType.TASK, "12.10.2024 15:00", 30);
         Task task2 = new Task("Test 2", "Testing task 2",

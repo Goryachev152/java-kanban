@@ -1,4 +1,4 @@
-package API;
+package api;
 
 import com.sun.net.httpserver.HttpServer;
 import service.HistoryManager;
