@@ -1,3 +1,0 @@
-id,type,name,status,description,startTime,duration,epic
-1,TASK,testName,NEW,testDescription,12.10.2024 15:00,120
-2,EPIC_TASK,testNameEpic,NEW,testDescriptionEpic
