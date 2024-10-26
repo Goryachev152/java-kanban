@@ -113,7 +113,7 @@ public class SubTaskAdapter extends TypeAdapter<SubTask> {
         if (!Objects.isNull(id)) {
             return new SubTask(id, epic, name, description, status, taskType, startTime, duration);
         } else {
-            return new SubTask(epic, name , description, status, taskType, startTime, duration);
+            return new SubTask(epic, name, description, status, taskType, startTime, duration);
         }
     }
 }
