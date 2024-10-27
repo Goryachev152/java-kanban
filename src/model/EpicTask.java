@@ -17,6 +17,11 @@ public class EpicTask extends Task {
         this.taskType = taskType;
     }
 
+    public EpicTask(int id, String name, String description, Status status, TaskType taskType, String startTime,
+                    Integer duration) {
+        super(id, name, description, status, taskType, startTime, duration);
+    }
+
     public EpicTask(Integer id, String name, String description, Status status, TaskType taskType) {
         this.id = id;
         this.name = name;
@@ -30,8 +35,15 @@ public class EpicTask extends Task {
         this.id = id;
     }
 
+    public EpicTask() {
+    }
+
     public List<SubTask> getSubTasks() {
-        return subTasks;
+        return new ArrayList<>(subTasks);
+    }
+
+    public void setSubTasks(List<SubTask> subTasks) {
+        this.subTasks = subTasks;
     }
 
     public void addSubTask(SubTask subTask) {
